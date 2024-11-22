@@ -12,6 +12,7 @@ function createVertexShader(gl){
                         uniform vec3 uTranslation; //Parametro de translação
 
                         void main(){
+                            // Transladando os Vértices
                             vec3 translatePos = aPos + uTranslation;
                             gl_Position = vec4(translatePos, 1.0);
                             vCor = aCor;
