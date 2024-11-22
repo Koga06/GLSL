@@ -44,32 +44,31 @@ function createFragmentShader(gl){
 function createSquare(gl, bufID) {
     // Dados do quadrado: vértices (x, y, z) e cores (r, g, b, a)
     var squareVertexData = new Float32Array([
-      // Triângulo 1
-      -0.5,  0.5, 0.0,  1.0, 0.0, 0.0, 1.0, // V0 - canto superior esquerdo
-       0.5,  0.5, 0.0,  0.0, 1.0, 0.0, 1.0, // V1 - canto superior direito
-      -0.5, -0.5, 0.0,  0.0, 0.0, 1.0, 1.0, // V2 - canto inferior esquerdo
-  
+
+       // Triângulo 1
+       -0.5,  0.5, 0.0,  1.0, 0.0, 0.0, 1.0, // V0 - canto superior esquerdo
+       -0.5, -0.5, 0.0,  0.0, 1.0, 0.0, 1.0, // V1 - canto inferior direito
+        0.5, -0.5, 0.0,  0.0, 0.0, 1.0, 1.0, // V2 - canto inferior esquerdo
+      
       // Triângulo 2
-      -0.5, -0.5, 0.0,  0.0, 0.0, 1.0, 1.0, // V2 - canto inferior esquerdo
-       0.5,  0.5, 0.0,  0.0, 1.0, 0.0, 1.0, // V1 - canto superior direito
-       0.5, -0.5, 0.0,  1.0, 1.0, 0.0, 1.0  // V3 - canto inferior direito
+      -0.5,  0.5, 0.0,  1.0, 0.0, 0.0, 1.0, // V0 - canto superior esquerdo
+       0.5, -0.5, 0.0,  0.0, 0.0, 1.0, 1.0, // V2 - canto inferior direito
+       0.5,  0.5, 0.0,  0.0, 1.0, 0.0, 1.0  // V3 - canto superior direito
+
+
     ]);
   
     // Transferindo os dados para o buffer
     gl.bufferData(gl.ARRAY_BUFFER, squareVertexData, gl.STATIC_DRAW);
   
-    // Configurando atributos de posição e cor
-    var vertexLoc = 0; // Localização do atributo de posição no shader
-    var colorLoc = 1; // Localização do atributo de cor no shader
+    var vertexLoc = 0; //var para localização dos dados de vértice 
+    var colorLoc = 1; //var para localização dos dados de cor
   
     var stride = (3 + 4) * Float32Array.BYTES_PER_ELEMENT; // 3 coordenadas + 4 cores
     var offset = 0;
-  
-    // Atributos de posição (x, y, z)
     gl.vertexAttribPointer(vertexLoc, 3, gl.FLOAT, false, stride, offset);
     gl.enableVertexAttribArray(vertexLoc);
   
-    // Atributos de cor (r, g, b, a)
     offset = 3 * Float32Array.BYTES_PER_ELEMENT;
     gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, false, stride, offset);
     gl.enableVertexAttribArray(colorLoc);
@@ -77,11 +76,11 @@ function createSquare(gl, bufID) {
   
 function drawSquare(progID, bufID, gl) {
   gl.clearColor(0.0, 0.0, 0.0, 1.0); // Cor de fundo
-  gl.clear(gl.COLOR_BUFFER_BIT); // Limpa o buffer de cor
+  gl.clear(gl.COLOR_BUFFER_BIT);
 
-  gl.useProgram(progID); // Usa o programa (shaders)
-  gl.bindBuffer(gl.ARRAY_BUFFER, bufID); // Vincula o buffer com os dados do quadrado
-  gl.drawArrays(gl.TRIANGLES, 0, 6); // Desenha 6 vértices (2 triângulos)
+  gl.useProgram(progID); // Executando o programa
+  gl.bindBuffer(gl.ARRAY_BUFFER, bufID); //Acessando os dados do traingulo
+  gl.drawArrays(gl.TRIANGLES, 0, 6); // Desenha os 6 vértices (2 triângulos)
 }
 
 function main() {
