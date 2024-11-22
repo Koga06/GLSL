@@ -21,11 +21,10 @@ function createVertexShader(gl){
 
 function createFragmentShader(gl){
   const fragShader = gl.createShader(gl.FRAGMENT_SHADER)
-  // FOI NESTE FRAGCOLOR QUE EU ALTEREI A COR DO TRIANGULO, COLOCANDO vec4(1, 0, 0, 1). que seria RGBA
   const fragSource = `precision mediump float;
                       varying vec4 vCor;
                       void main(){
-                        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+                        gl_FragColor = vCor;
                       }`
 
   gl.shaderSource(fragShader, fragSource);//Adiciona o código ao Shader
@@ -44,10 +43,10 @@ function createTriangle(gl, bufID) {
         1.0, 0.0, 0.0, 1.0, //4 valores R,G,B,A
 
         -0.5, -0.5, 0.0,// (V1)
-        0.0, 1.0, 0.0, 1.0,
+        1.0, 0.0, 0.0, 1.0,
 
         0.5, -0.5, 0.0, // (V2)
-        0.0, 0.0, 1.0, 1.0,
+        1.0, 0.0, 0.0, 1.0,
     ]);
 
     gl.bufferData(gl.ARRAY_BUFFER, triangleVertexData, gl.STATIC_DRAW);
