@@ -87,35 +87,33 @@ function animationLoop(gl, progID, bufID, colorLoc) {
   let time = 0; // Variável para controlar o tempo
 
   function animate() {
-    // Atualizando as cores com base no tempo
+    // Alternando as cores com um tipo de offset
     const r = Math.abs(Math.sin(time * 0.01));
-    const g = Math.abs(Math.sin(time * 0.01));
-    const b = Math.abs(Math.sin(time * 0.01));
+    const g = Math.abs(Math.sin((time * 0.01) + Math.PI / 3));
+    const b = Math.abs(Math.sin((time * 0.01) + (2 * Math.PI / 3)));
 
-    // Atualizando os dados no buffer
     const squareVertexData = new Float32Array([
       // Triângulo 1
-      -0.5,  0.5, 0.0,  r, 0.0, 0.0, 1.0, // V0 - canto superior esquerdo
-      -0.5, -0.5, 0.0,  r, 0.0, 0.0, 1.0, // V1 - canto inferior esquerdo
-       0.5, -0.5, 0.0,  r, 0.0, 0.0, 1.0, // V2 - canto inferior direito
+      -0.5,  0.5, 0.0,  r, g, b, 1.0, // V0 - canto superior esquerdo
+      -0.5, -0.5, 0.0,  r, g, b, 1.0, // V1 - canto inferior esquerdo
+       0.5, -0.5, 0.0,  r, g, b, 1.0, // V2 - canto inferior direito
 
       // Triângulo 2
-      -0.5,  0.5, 0.0,  r, 0.0, 0.0, 1.0, // V0 - canto superior esquerdo
-       0.5, -0.5, 0.0,  0.0, g, 0.0, 1.0, // V2 - canto inferior direito
-       0.5,  0.5, 0.0,  0.0, 0.0, b, 1.0  // V3 - canto superior direito
+      -0.5,  0.5, 0.0,  r, g, b, 1.0, // V0 - canto superior esquerdo
+       0.5, -0.5, 0.0,  r, g, b, 1.0, // V2 - canto inferior direito
+       0.5,  0.5, 0.0,  r, g, b, 1.0  // V3 - canto superior direito
     ]);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, bufID);
     gl.bufferData(gl.ARRAY_BUFFER, squareVertexData, gl.STATIC_DRAW);
 
-    // Redesenhar o quadrado com as novas cores
     drawSquare(progID, bufID, gl);
 
-    time++; // Incrementa o tempo
-    requestAnimationFrame(animate); // Chama a próxima animação
+    time++; // incrementando o tempo
+    requestAnimationFrame(animate); // proxima animação
   }
 
-  animate(); // Inicia a animação
+  animate(); // inicia a animação
 }
 
 function main() {
